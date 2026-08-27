@@ -198,15 +198,36 @@ st.bar_chart(monthly_data, height=300)
 # ==========================================
 st.markdown("---")
 st.markdown("### 📋 Master Inventory Database View")
-st.dataframe(
-    filtered_df[['File Number', 'VFS Number', 'Country', 'Status', 'Registration Wait (Days)', 'Decision Wait (Days)', 'Total Wait (Days)']],
-    column_config={
-        "File Number": st.column_config.NumberColumn("IBZ ID", format="%d"),
-        "VFS Number": "VFS Code",
-        "Country": "Country",
-        "Status": "Current Phase",
-        "Registration Wait (Days)": "Sub ➔ Reg (Days)",
-        "Decision Wait (Days)": "Reg ➔ Dec (Days)",
-        "Total Wait (Days)": "Total Journey (Days)"
+# ==========================================
+# ১. কাস্টম CSS অ্যানিমেশন (কোডের যেকোনো জায়গায় একবার রাখলেই হবে, টেবিলকে স্মুথ করবে)
+# ==========================================
+st.markdown("""
+    <style>
+    @keyframes tableFadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
-)  # <--- এই ব্র্যাকেটটি দিয়ে ফাংশনটি শেষ করা হয়েছে
+    .stDataFrame {
+        animation: tableFadeIn 1.2s ease-out !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# ==========================================
+# ২. আপনার আসল টেবিল কোড (যা এখন অ্যানিমেটেড এবং ফুল স্ক্রিন)
+# ==========================================
+with st.spinner("🔄 Rendering premium data view..."):
+    
+    st.dataframe(
+        filtered_df[['File Number', 'VFS Number', 'Country', 'Status', 'Registration Wait (Days)', 'Decision Wait (Days)', 'Total Wait (Days)']],
+        column_config={
+            "File Number": st.column_config.NumberColumn("IBZ ID", format="%d"),
+            "VFS Number": "VFS Code",
+            "Country": "Country",
+            "Status": "Current Phase",
+            "Registration Wait (Days)": "Sub ➔ Reg (Days)",
+            "Decision Wait (Days)": "Reg ➔ Dec (Days)",
+            "Total Wait (Days)": "Total Journey (Days)"
+        },
+        use_container_width=True # টেবিলটি পিসির স্ক্রিন অনুযায়ী সুন্দরভাবে ছড়িয়ে যাবে
+    )
