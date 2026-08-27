@@ -208,4 +208,5 @@ st.dataframe(
         "Registration Wait (Days)": "Sub ➔ Reg (Days)",
         "Decision Wait (Days)": "Reg ➔ Dec (Days)",
         "Total Wait (Days)": "Total Journey (Days)"
-    },
+    }
+)  # <--- এই ব্র্যাকেটটি দিয়ে ফাংশনটি শেষ করা হয়েছে
